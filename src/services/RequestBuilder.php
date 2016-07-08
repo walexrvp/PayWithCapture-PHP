@@ -6,6 +6,7 @@
 namespace PayWithCapture\Services;
 
 use PayWithCapture\Builders\AuthenticationRequestBuilder;
+use PayWithCapture\Builders\TransactionRequestBuilder;
 
 class RequestBuilder
 {
@@ -15,9 +16,9 @@ class RequestBuilder
     return new AuthenticationRequestBuilder($env);
   }
 
-  public static function getTransactionRequestBuilder()
+  public static function getTransactionRequestBuilder($env)
   {
-
+    return new TransactionRequestBuilder($env);
   }
 
 
