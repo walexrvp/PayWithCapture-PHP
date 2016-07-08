@@ -9,4 +9,6 @@ class ServerData
   );
 
   public static $AUTHENTICATION_PATH = "/oauth/token";
+
+  public static $DEFAULT_GRANT_TYPE = "client_credentials";
 }

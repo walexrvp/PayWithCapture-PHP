@@ -58,10 +58,22 @@ class AuthenticationRequestBuilder
     return $this;
   }
 
+  private function validateGrantType()
+  {
+    if ($this->session->data['grant_type'] != ServerData::$DEFAULT_GRANT_TYPE) {
+      if (!$this->session->data['username'] || !$this->session->data['password'])
+        throw new Exception(""); //TODO: throw invalid auth parameters exception
+    }
+
+  }
+
   public function build()
   {
-    $this->log->info("Authentication path is ".ServerData::$AUTHENTICATION_PATH);
+    $this->validateGrantType();
+    $this->log->info("Authentication path is: ".ServerData::$AUTHENTICATION_PATH);
+    $this->log->info("Authentication request body: ".json_encode($this->session->data));
     $response = $this->session->post(ServerData::$AUTHENTICATION_PATH);
+    $this->log->info("Authentication response: ".json_encode($response));
     $response = AuthenticationResponse::parseAuthenticationResponse($response);
     return $response;
   }
