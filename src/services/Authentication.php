@@ -16,6 +16,8 @@ class Authentication
   private $accessTokenExpirationTimeInSeconds;
   private $accessToken;
 
+  private $log;
+
   /*
   * this variable will be used to tell Authentication and others if in development stage
   * or in producation stage.
@@ -23,13 +25,15 @@ class Authentication
   */
   private $env;
 
-  function __construct($clientId, $clientSecret, $grantType, $env="staging", $eagerLoading=false, $username="", $password="") {
+  function __construct($clientId, $clientSecret, $env="staging", $eagerLoading=false, $username="", $password="") {
     $this->clientId = $clientId;
     $this->clientSecret = $clientSecret;
-    $this->grantType = $grantType;
-    $this->username = $username;
+    $this->grantType = ServerData::$DEFAULT_GRANT_TYPE;
+    $this->userName = $username;
     $this->password = $password;
     $this->env = $env;
+
+    $this->log = Logging::getLoggerInstance();
 
     if ($eagerLoading)
       $this->fetchAccessToken();
@@ -64,10 +68,14 @@ class Authentication
   private function fetchAccessToken()
   {
     $this->validateFetchTokenRequiredValues();
+    //this section determines which grantType to use for authentication
+    $usePasswordGrantType = ($this->userName && $this->password);
+    $grantType = $usePasswordGrantType ? $this->password : $this->grantType;
+    $this->log->info("Grant type for fetchAccessToken: ".$grantType);
     $response = RequestBuilder::getAuthenticationRequestBuilder($this->env)
                   ->addClientId($this->clientId)
                   ->addClientSecret($this->clientSecret)
-                  ->addGrantType($this->grantType)
+                  ->addGrantType($grantType)
                   ->addUserName($this->userName)
                   ->addPassword($this->password)
                   ->build();
