@@ -3,17 +3,15 @@ namespace PayWithCapture;
 
 use PayWithCapture\Interfaces\APIServices;
 use PayWithCapture\Services\Transaction;
+use PayWithCapture\Services\ServerData;
 
 class PayWithCaptureClient implements APIServices
 {
-  public const STAGING = "staging";
-  public const PRODUCTION = "production";
-
   private $env;
 
   private $authentication;
 
-  function __construct($clientId, $clientSecret, $env=self::STAGING, $eagerLoading=false, $username="", $password="")
+  function __construct($clientId, $clientSecret, $env = ServerData::$STAGING, $eagerLoading = false, $username = "", $password = "")
   {
     $this->env = $env;
     $authentication = new Authentication($clientId, $clientSecret, $env, $eagerLoading, $username, $password);
