@@ -5,7 +5,7 @@
 */
 namespace PayWithCapture\Services;
 
-use PayWithCapture\Services\Builders\AuthenticationRequestBuilder;
+use PayWithCapture\Builders\AuthenticationRequestBuilder;
 
 class RequestBuilder
 {
@@ -17,7 +17,7 @@ class RequestBuilder
 
   public static function getTransactionRequestBuilder()
   {
-    
+
   }
 
 
