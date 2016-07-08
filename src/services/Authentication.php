@@ -9,7 +9,6 @@ class Authentication
 {
   private $clientId;
   private $clientSecret;
-  private $grantType;
   private $userName;
   private $password;
   private $refreshToken;
@@ -28,7 +27,6 @@ class Authentication
   function __construct($clientId, $clientSecret, $env="staging", $eagerLoading=false, $username="", $password="") {
     $this->clientId = $clientId;
     $this->clientSecret = $clientSecret;
-    $this->grantType = ServerData::$DEFAULT_GRANT_TYPE;
     $this->userName = $username;
     $this->password = $password;
     $this->env = $env;
@@ -70,7 +68,7 @@ class Authentication
     $this->validateFetchTokenRequiredValues();
     //this section determines which grantType to use for authentication
     $usePasswordGrantType = ($this->userName && $this->password);
-    $grantType = $usePasswordGrantType ? $this->password : $this->grantType;
+    $grantType = $usePasswordGrantType ? ServerData::$PASSWORD_GRANT_TYPE : ServerData::$DEFAULT_GRANT_TYPE;
     $this->log->info("Grant type for fetchAccessToken: ".$grantType);
     $response = RequestBuilder::getAuthenticationRequestBuilder($this->env)
                   ->addClientId($this->clientId)
