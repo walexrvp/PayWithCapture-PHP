@@ -1,6 +1,6 @@
 <?php
-namespace PayWithCapture\Services\Parsers;
-use PayWithCapture\Services\Parsers\AuthenticationResponse;
+namespace PayWithCapture\Parsers;
+
 use PayWithCapture\Services\Logging;
 
 class AuthenticationResponse

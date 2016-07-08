@@ -18,7 +18,9 @@
   "autoload": {
     "psr-4": {
       "PayWithCapture\\": "src",
-      "PayWithCapture\\Services\\": "src/services"
+      "PayWithCapture\\Services\\": "src/services",
+      "PayWithCapture\\Builders\\": "src/builders",
+      "PayWithCapture\\Parsers\\": "src/parsers"
     }
   }
 

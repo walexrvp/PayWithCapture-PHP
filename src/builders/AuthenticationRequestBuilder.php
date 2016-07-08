@@ -1,9 +1,9 @@
 <?php
-namespace PayWithCapture\Services\Builders;
+namespace PayWithCapture\Builders;
 
 use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Logging;
-use PayWithCapture\Services\Parsers\AuthenticationResponse;
+use PayWithCapture\Parsers\AuthenticationResponse;
 
 class AuthenticationRequestBuilder
 {
