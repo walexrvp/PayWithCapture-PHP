@@ -3,7 +3,8 @@
 use PayWithCapture\Services\Authentication;
 use PayWithCapture\Services\Logging;
 
-class AuthenticationServiceTest extends PHPUnit_Framework_TestCase{
+class AuthenticationServiceTest extends PHPUnit_Framework_TestCase
+{
   private $clientId = "577e5fe42989c31100b26f14";
   private $clientSecret = "diHopa8yFNDWofRNJIeREDmAV3HhL7bwr4umhlhPS0CgqIiOylA6Y9obfsV9VsbWBDuMUKE7MvVpIrtip4oX8zmG21I4QI1rhwjx";
   private $grantType = "client_credentials";
