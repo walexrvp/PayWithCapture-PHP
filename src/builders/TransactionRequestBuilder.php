@@ -5,15 +5,12 @@ use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Logging;
 use PayWithCapture\Parsers\TransactionResponse;
 
-class TransactionRequestBuilder {
+class TransactionRequestBuilder extends ParentBuilder {
   private $transactionId;
 
   function __construct($env)
   {
-    $this->log = Logging::getLoggerInstance();
-    $this->log->info("TransactionRequestBuilder base url: ".ServerData::$BASE_URL[$env]);
-    $this->session = new \Requests_Session(ServerData::$BASE_URL[$env]);
-
+    parent::__construct($env);
   }
 
   private function buildQueryUrl()
@@ -21,12 +18,6 @@ class TransactionRequestBuilder {
     $queryUrl = ServerData::$TRANSACTION_QUERY_PATH . "?transaction_id=" . $this->transactionId;
     $this->log->info("Transaction path and query: ".$queryUrl);
     return $queryUrl;
-  }
-
-  public function addAccessToken($accessToken)
-  {
-    $this->session->headers['Authorization'] = ServerData::$BEARER.$accessToken;
-    return $this;
   }
 
   public function addTransactionId($transactionId)

@@ -21,7 +21,7 @@
       "PayWithCapture\\Services\\": "src/services",
       "PayWithCapture\\Builders\\": "src/builders",
       "PayWithCapture\\Parsers\\": "src/parsers",
-      "PayWithCapture\\Interfaces\\": "src/interfaces"
+      "PayWithCapture\\Contracts\\": "src/contracts"
     }
   }
 
