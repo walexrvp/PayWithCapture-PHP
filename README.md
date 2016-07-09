@@ -27,7 +27,7 @@ $client = new PayWithCaptureClient($clientId, $clientSecret);
 $client = new PayWithCaptureClient($clientId, $clientSecret, $env //optional,
                $eagerLoading //optional, $username //optional, $password //optional);
 ```
-When you register as a developer on PayWithCapture DevCenter, you will receive a clientId and clientSecret
+When you register as a developer on PayWithCapture DevCenter, you will get a clientId and clientSecret
 for Authentication. When in development stage the $env variable should be set to `staging`.
 
 Set $eagerLoading variable to false if you want Authentication to happen only when you make a request to the server or false if you want authentication to happen when you instantiated the PayWithCaptureClient class.
