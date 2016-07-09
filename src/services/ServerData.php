@@ -14,7 +14,7 @@ class ServerData
 
   public static $PASSWORD_GRANT_TYPE = "password";
 
-  public static $TRANSACTION_QUERY_PATH = "/order/transactions";
+  public static $TRANSACTION_QUERY_PATH = "/orders/transactions";
 
   public static $BEARER = "Bearer ";
 
