@@ -5,19 +5,16 @@ use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Logging;
 use PayWithCapture\Parsers\AuthenticationResponse;
 
-class AuthenticationRequestBuilder
+class AuthenticationRequestBuilder extends ParentBuilder
 {
   private $authUrl;
-
-  private $log;
 
   /*
   * @param $env string can be "staging" or "production"
   */
   function __construct($env)
   {
-    $this->session = new \Requests_Session(ServerData::$BASE_URL[$env]);
-    $this->log = Logging::getLoggerInstance();
+    parent::__construct($env);
   }
 
   public function addClientId($val)

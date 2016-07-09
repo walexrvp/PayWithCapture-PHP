@@ -16,9 +16,17 @@ class ServerData
 
   public static $TRANSACTION_QUERY_PATH = "/orders/transactions";
 
+  public static $ACCOUNT_PAYMENT_PATH = "/orders/oneOffPayment";
+
+  public static $ACCOUNT_PAYMENT_TYPE = "account";
+
+  public static $CARD_PAYMENT_TYPE = "card";
+
   public static $BEARER = "Bearer ";
 
   public static $STAGING = "staging";
 
   public static $PRODUCTION = "production";
+
+
 }
