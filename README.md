@@ -9,7 +9,7 @@ You can signup for a PayWithCapture developer account at [PayWithCapture DevCent
 + __Transactions__
 + __POS Printing__
 + __QR CODES__
-+ __BVN BANK ACCOUNT VERIFICATION__
++ __BVN Bank Account verification__
 
 ## Requirements
 PHP 5.3.3 and later
