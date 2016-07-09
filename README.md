@@ -3,6 +3,14 @@ The PayWithCapture PHP lets you write PHP code to consume PayWithCapture APIs
 
 You can signup for a PayWithCapture developer account at [PayWithCapture DevCenter](https://pwcdevcenter.herokuapp.com)
 
+### PayWithCapture API Services
++ __Account Payment__
++ __Card Payment__
++ __Transactions__
++ __POS Printing__
++ __QR CODES__
++ __BVN BANK ACCOUNT VERIFICATION__
+
 ## Requirements
 PHP 5.3.3 and later
 
@@ -33,11 +41,3 @@ for Authentication. When in development stage the $env variable should be set to
 Set $eagerLoading variable to false if you want Authentication to happen only when you make a request to the server or false if you want authentication to happen when you instantiated the PayWithCaptureClient class.
 
 The $username and $password variables are used if you intend to authenticate your API requests with your developer account username and password.
-
-### PayWithCapture API Services
-+ __Account Payment__
-+ __Card Payment__
-+ __Transactions__
-+ __POS Printing__
-+ __QR CODES__
-+ __BVN BANK ACCOUNT VERIFICATION__
