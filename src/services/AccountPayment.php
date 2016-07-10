@@ -30,7 +30,12 @@ class AccountPayment implements PaymentContract{
 
   public function validatePayment($otp)
   {
-
+    $response = RequestBuilder::getPaymentValidationRequestBuilder($this->env)
+                                  ->addAccessToken($this->accessToken)
+                                  ->addType(ServerData::$ACCOUNT_PAYMENT)
+                                  ->addOtp($otp)
+                                  ->build();
+    return $response;
   }
 
 }

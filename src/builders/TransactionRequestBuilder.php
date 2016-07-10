@@ -33,7 +33,7 @@ class TransactionRequestBuilder extends ParentBuilder {
     $response = $this->session->get($this->buildQueryUrl());
     $this->log->info("TransactionRequestBuilder build response: ".json_encode($response));
     ServerResponseValidator::validate($response);
-    return json_encode($response->body, true);
+    return json_decode($response->body, true);
   }
 
 

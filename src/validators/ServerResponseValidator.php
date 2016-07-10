@@ -1,5 +1,5 @@
 <?php
-namespace PayWithCapture\Parsers;
+namespace PayWithCapture\Validators;
 
 use PayWithCapture\Services\Logging;
 
@@ -18,7 +18,7 @@ class ServerResponseValidator
   * @param RequestResponse
   * @return void
   */
-  private static function validate($response)
+  public static function validate($response)
   {
     self::init();
     self::$log->info("Account Payment Server Response: ".$response->body);

@@ -47,4 +47,24 @@ class PayWithCaptureClient implements APIContract
   {
     return new AccountPayment($this->loadAuthAndReturnAccessToken(), $this->env);
   }
+
+  public function getCardPaymentClient()
+  {
+    return new CardPayment($this->loadAuthAndReturnAccessToken(), $this->env);
+  }
+
+  public function getOtpClient()
+  {
+
+  }
+
+  public function getQRCodeClient()
+  {
+
+  }
+
+  public function getPOSPrintingClient()
+  {
+    
+  }
 }
