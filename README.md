@@ -22,7 +22,8 @@ You can install PayWithCapture-PHP via [composer](https://getcomposer.org/)
 
 ## Manual Installation
 Please try not to install manually as there are many dependencies you will need to manage. However,
-if you insist on installing manually then check the composer.php file for dependencies and check the dependencies of the projects depended on.
+if you insist on installing manually then check the dependencies of the projects depended on, and the dependencies of the depended on projects and so on.
+
 
 ## Getting Started
 To use, first create an instance of the PayWithCaptureClient class. This class is responsible for
