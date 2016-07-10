@@ -26,7 +26,7 @@ class TransactionServiceTest extends PHPUnit_Framework_TestCase
     $token = $auth->getAccessToken();
     $transaction = new Transaction($token, "staging");
     $response = $transaction->findTransaction("PWCDEV-1468048254376");
-    $this->assertFalse(empty($response->orderId));
+    $this->assertFalse(empty($response['data']['order_id']));
 
   }
 }

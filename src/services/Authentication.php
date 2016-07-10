@@ -77,9 +77,9 @@ class Authentication
                   ->addUserName($this->userName)
                   ->addPassword($this->password)
                   ->build();
-    $this->setRefreshToken($response->refreshToken);
-    $this->setAccessToken($response->accessToken);
-    $this->setAccessTokenExpirationTimeInSeconds($response->expiresIn);
+    $this->setRefreshToken($response['refresh_token']);
+    $this->setAccessToken($response['access_token']);
+    $this->setAccessTokenExpirationTimeInSeconds($response['expires_in']);
   }
 
 
@@ -104,9 +104,9 @@ class Authentication
     $response = RequestBuilder::getAuthenticationRequestBuilder()
                   ->addRefreshToken(getRefreshToken())
                   ->build();
-    $this->setRefreshToken($response->getRefreshToken());
-    $this->setAccessToken($response->getAccessToken());
-    $this->setAccessTokenExpirationTimeInSeconds($response->getExpiresIn());
+    $this->setRefreshToken($response['refresh_token']);
+    $this->setAccessToken($response['access_token']);
+    $this->setAccessTokenExpirationTimeInSeconds($response['expires_in']);
   }
 
   private function validateFetchTokenRequiredValues()
