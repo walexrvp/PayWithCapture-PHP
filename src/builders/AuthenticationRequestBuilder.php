@@ -72,6 +72,6 @@ class AuthenticationRequestBuilder extends ParentBuilder
     $response = $this->session->post(ServerData::$AUTHENTICATION_PATH);
     $this->log->info("Authentication response: ".json_encode($response));
     ServerResponseValidator::validate($response);
-    return json_encode($response->body, true);
+    return json_decode($response->body, true);
   }
 }

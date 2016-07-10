@@ -32,8 +32,18 @@ class AccountPaymentServiceTest extends PHPUnit_Framework_TestCase
       "merchant_id" => "577e5fe42989c31100b26f13"
     );
     $response = $accountPaymentClient->createPayment($paymentDetails);
-    $this->assertTrue($response['data']['verify'];
+    $this->assertTrue($response['data']['verify']);
     $this->assertEquals("Verification Code Sent", $response['data']['message']);
     $this->assertNotEmpty($response['data']['order_id']);
+  }
+
+  public function testAccountPaymentValidationResponseOkay(){
+    $auth = new Authentication($this->clientId, $this->clientSecret);
+    $auth->loadAccessToken();
+    $token = $auth->getAccessToken();
+    $accountPaymentClient = new AccountPayment($token);
+    $otp = "12345";
+    $response = $accountPaymentClient->validatePayment($otp);
+    $this->log->info("AccountPaymentValidation Response: ".json_encode($response));
   }
 }

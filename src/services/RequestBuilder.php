@@ -8,6 +8,8 @@ namespace PayWithCapture\Services;
 use PayWithCapture\Builders\AuthenticationRequestBuilder;
 use PayWithCapture\Builders\TransactionRequestBuilder;
 use PayWithCapture\Builders\AccountPaymentRequestBuilder;
+use PayWithCapture\Builders\PaymentValidationRequestBuilder;
+use PayWithCapture\Builders\CardPaymentRequestBuilder;
 
 class RequestBuilder
 {
@@ -25,6 +27,16 @@ class RequestBuilder
   public static function getAccountPaymentRequestBuilder($env)
   {
     return new AccountPaymentRequestBuilder($env);
+  }
+
+  public static function getPaymentValidationRequestBuilder($env)
+  {
+    return new PaymentValidationRequestBuilder($env);
+  }
+
+  public static function getCardPaymentRequestBuilder($env)
+  {
+    return new CardPaymentRequestBuilder($env);
   }
 
 
