@@ -24,6 +24,12 @@ class PayWithCaptureClient implements APIContract
     $authentication = new Authentication($clientId, $clientSecret, $env, $eagerLoading, $username, $password);
   }
 
+  private function loadAuthAndReturnAccessToken()
+  {
+    $authentication->loadAccessToken();
+    $accessToken = $authentication->getAccessToken();
+  }
+
   /*
   * This method returns a Transaction client for interacting
   * with transaction endpoints such as get details of a transaction
@@ -34,15 +40,11 @@ class PayWithCaptureClient implements APIContract
   */
   public function getTransactionClient()
   {
-    $authentication->loadAccessToken();
-    $accessToken = $authentication->getAccessToken();
-    return new Transaction($accessToken, $this->env);
+    return new Transaction($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 
   public function getAccountPaymentClient()
   {
-    $authentication->loadAccessToken();
-    $accessToken = $authentication->getAccessToken();
-    return new AccountPayment($token, $this->env);
+    return new AccountPayment($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 }
