@@ -4,6 +4,7 @@ namespace PayWithCapture;
 use PayWithCapture\Contracts\APIContract;
 use PayWithCapture\Services\Transaction;
 use PayWithCapture\Services\ServerData;
+use PayWithCapture\Services\Otp;
 
 /*
 * This class is responsible for getting clients to
@@ -55,16 +56,16 @@ class PayWithCaptureClient implements APIContract
 
   public function getOtpClient()
   {
-
+    return new Otp($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 
   public function getQRCodeClient()
   {
-
+    
   }
 
   public function getPOSPrintingClient()
   {
-    
+
   }
 }

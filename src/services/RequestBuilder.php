@@ -10,6 +10,7 @@ use PayWithCapture\Builders\TransactionRequestBuilder;
 use PayWithCapture\Builders\AccountPaymentRequestBuilder;
 use PayWithCapture\Builders\PaymentValidationRequestBuilder;
 use PayWithCapture\Builders\CardPaymentRequestBuilder;
+use PayWithCapture\Builders\OtpRequestBuilder;
 
 class RequestBuilder
 {
@@ -37,6 +38,11 @@ class RequestBuilder
   public static function getCardPaymentRequestBuilder($env)
   {
     return new CardPaymentRequestBuilder($env);
+  }
+
+  public static function getOtpRequestBuilder($env)
+  {
+    return new OtpRequestBuilder($env);
   }
 
 
