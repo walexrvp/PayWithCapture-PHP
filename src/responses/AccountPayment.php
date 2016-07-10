@@ -1,6 +1,5 @@
 <?php
 namespace PayWithCapture\Responses;
-use PayWithCapture\Services\AccountPayment;
 
 class AccountPayment
 {

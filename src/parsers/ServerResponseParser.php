@@ -8,7 +8,12 @@ use PayWithCapture\Responses\Authentication;
 
 class ServerResponseParser
 {
-  private static $log = Logging::getLoggerInstance();
+  private static $log;
+
+  private static function init()
+  {
+    self::$log = Logging::getLoggerInstance();
+  }
 
   /*
   * This function is responsible for validating Htt response
@@ -18,8 +23,8 @@ class ServerResponseParser
   */
   private static function validateServerResponse($response)
   {
-    self::$log = Logging::getLoggerInstance();
-    $log->info("Account Payment Server Response: ".$response->body);
+    self::init();
+    self::$log->info("Account Payment Server Response: ".$response->body);
 
     if ($response->status_code == 404)
       throw new Exception(""); //TODO: throw not found exception
@@ -39,10 +44,12 @@ class ServerResponseParser
   public static function parseAuthenticationResponse($response)
   {
     self::validateServerResponse($response);
+    $responseInArrayFormat = json_decode($response->body, true);
     $auth = new Authentication();
-    $auth->accessToken = $responseArrayFormat['access_token'];
-    $auth->expiresIn = $responseArrayFormat['expires_in'];
-    $auth->refreshToken = $responseArrayFormat['refresh_token'];
+    $auth->accessToken = $responseInArrayFormat['access_token'];
+    $auth->expiresIn = $responseInArrayFormat['expires_in'];
+    $auth->refreshToken = $responseInArrayFormat['refresh_token'];
+    $auth->tokenType = $responseInArrayFormat['refresh_type'];
     return $auth;
   }
 
@@ -54,6 +61,7 @@ class ServerResponseParser
   public static function parseAccountPaymentResponse($response)
   {
     self::validateServerResponse($response);
+    $responseInArrayFormat = json_decode($response->body, true);
     $payment = new AccountPayment();
     $payment->orderId = $responseInArrayFormat['data']['order_id'];
     $payment->verify = $responseInArrayFormat['data']['verify'];
@@ -69,6 +77,7 @@ class ServerResponseParser
   public static function parseTransactionResponse($response)
   {
     self::validateServerResponse($response);
+    $responseInArrayFormat = json_decode($response->body, true);
     $newTrans = new Transaction();
     $newTrans->orderId = $responseInArrayFormat['data']['order_id'];
     $newTrans->responseMessage = $responseInArrayFormat['data']['gateway_response']['responsemessage'];

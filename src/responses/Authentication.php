@@ -3,8 +3,8 @@ namespace PayWithCapture\Responses;
 
 class Authentication
 {
-  private $tokenType;
-  private $accessToken;
-  private $expiresIn;
-  private $refreshToken;
+  public $tokenType;
+  public $accessToken;
+  public $expiresIn;
+  public $refreshToken;
 }
