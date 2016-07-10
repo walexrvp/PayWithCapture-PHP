@@ -77,9 +77,9 @@ class Authentication
                   ->addUserName($this->userName)
                   ->addPassword($this->password)
                   ->build();
-    $this->setRefreshToken($response->getRefreshToken());
-    $this->setAccessToken($response->getAccessToken());
-    $this->setAccessTokenExpirationTimeInSeconds($response->getExpiresIn());
+    $this->setRefreshToken($response->refreshToken);
+    $this->setAccessToken($response->accessToken);
+    $this->setAccessTokenExpirationTimeInSeconds($response->expiresIn);
   }
 
 

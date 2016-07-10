@@ -2,7 +2,7 @@
 namespace PayWithCapture\Builders;
 
 use PayWithCapture\Services\ServerData;
-use PayWithCapture\Parsers\AccountPaymentResponse;
+use PayWithCapture\Parsers\ServerResponseParser;
 
 class AccountPaymentRequestBuilder extends ParentBuilder
 {
@@ -47,13 +47,18 @@ class AccountPaymentRequestBuilder extends ParentBuilder
     return $this;
   }
 
+  /*
+  * This method builds the request and sends the request to the server
+  * then sends the response to parser for validation and convertion to AccountPayment type
+  * @return AccountPayment
+  */
   public function build()
   {
     $this->log->info("AccountPayment headers: ".json_encode($this->session->headers));
     $this->log->info("Account payment data: ".json_encode($this->session->data));
     $response = $this->session->post(ServerData::$ACCOUNT_PAYMENT_PATH);
     $this->log->info("AccountPaymentBuilder build response: ".json_encode($response));
-    $response = AccountPaymentResponse::parseServerResponse($response);
-    return $response;
+    $accPayment = ServerResponseParser::parseAccountPaymentResponse($response);
+    return $accPayment;
   }
 }
