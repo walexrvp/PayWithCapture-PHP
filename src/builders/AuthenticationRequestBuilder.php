@@ -3,7 +3,7 @@ namespace PayWithCapture\Builders;
 
 use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Logging;
-use PayWithCapture\Parsers\ServerResponseParser;
+use PayWithCapture\Validators\ServerResponseValidator;
 
 class AuthenticationRequestBuilder extends ParentBuilder
 {
@@ -71,7 +71,7 @@ class AuthenticationRequestBuilder extends ParentBuilder
     $this->log->info("Authentication request body: ".json_encode($this->session->data));
     $response = $this->session->post(ServerData::$AUTHENTICATION_PATH);
     $this->log->info("Authentication response: ".json_encode($response));
-    $authObject = ServerResponseParser::parseAuthenticationResponse($response);
-    return $authObject;
+    ServerResponseValidator::validate($response);
+    return json_encode($response->body, true);
   }
 }

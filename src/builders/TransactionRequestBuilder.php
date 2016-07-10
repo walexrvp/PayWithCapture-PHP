@@ -3,7 +3,7 @@ namespace PayWithCapture\Builders;
 
 use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Logging;
-use PayWithCapture\Parsers\ServerResponseParser;
+use PayWithCapture\Validators\ServerResponseValidator;
 
 class TransactionRequestBuilder extends ParentBuilder {
   private $transactionId;
@@ -32,8 +32,8 @@ class TransactionRequestBuilder extends ParentBuilder {
     $this->log->info("Transaction request params: ".json_encode($this->session->options));
     $response = $this->session->get($this->buildQueryUrl());
     $this->log->info("TransactionRequestBuilder build response: ".json_encode($response));
-    $response = ServerResponseParser::parseTransactionResponse($response);
-    return $response;
+    ServerResponseValidator::validate($response);
+    return json_encode($response->body, true);
   }
 
 

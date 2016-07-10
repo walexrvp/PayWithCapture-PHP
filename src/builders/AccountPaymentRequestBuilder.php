@@ -2,7 +2,7 @@
 namespace PayWithCapture\Builders;
 
 use PayWithCapture\Services\ServerData;
-use PayWithCapture\Parsers\ServerResponseParser;
+use PayWithCapture\Validators\ServerResponseValidator;
 
 class AccountPaymentRequestBuilder extends ParentBuilder
 {
@@ -58,7 +58,7 @@ class AccountPaymentRequestBuilder extends ParentBuilder
     $this->log->info("Account payment data: ".json_encode($this->session->data));
     $response = $this->session->post(ServerData::$ACCOUNT_PAYMENT_PATH);
     $this->log->info("AccountPaymentBuilder build response: ".json_encode($response));
-    $accPayment = ServerResponseParser::parseAccountPaymentResponse($response);
-    return $accPayment;
+    ServerResponseValidator::validate($response);
+    return json_encode($response->body, true);
   }
 }

@@ -32,8 +32,8 @@ class AccountPaymentServiceTest extends PHPUnit_Framework_TestCase
       "merchant_id" => "577e5fe42989c31100b26f13"
     );
     $response = $accountPaymentClient->createPayment($paymentDetails);
-    $this->assertTrue($response->verify);
-    $this->assertEquals("Verification Code Sent", $response->message);
-    $this->assertNotEmpty($response->orderId);
+    $this->assertTrue($response['data']['verify'];
+    $this->assertEquals("Verification Code Sent", $response['data']['message']);
+    $this->assertNotEmpty($response['data']['order_id']);
   }
 }
