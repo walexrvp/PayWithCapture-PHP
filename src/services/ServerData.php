@@ -21,6 +21,12 @@ class ServerData
   public static $ACCOUNT_PAYMENT_TYPE = "account";
   public static $CARD_PAYMENT_TYPE = "card";
 
+  public static $VOICE_OTP_TYPE = "voice";
+  public static $SMS_OTP_TYPE = "sms";
+
+  public static $OTP_PATH = "/otp";
+
+
   public static $CARD_PAYMENT = "oneOffCard";
   public static $ACCOUNT_PAYMENT = "oneOffAccount";
 
