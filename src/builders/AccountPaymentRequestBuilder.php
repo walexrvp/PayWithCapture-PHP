@@ -51,7 +51,7 @@ class AccountPaymentRequestBuilder extends ParentBuilder
   {
     $this->log->info("AccountPayment headers: ".json_encode($this->session->headers));
     $this->log->info("Account payment data: ".json_encode($this->session->data));
-    $response = $this->session->get(ServerData::$ACCOUNT_PAYMENT_PATH);
+    $response = $this->session->post(ServerData::$ACCOUNT_PAYMENT_PATH);
     $this->log->info("AccountPaymentBuilder build response: ".json_encode($response));
     $response = AccountPaymentResponse::parseServerResponse($response);
     return $response;

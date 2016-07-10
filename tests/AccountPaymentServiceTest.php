@@ -28,10 +28,12 @@ class AccountPaymentServiceTest extends PHPUnit_Framework_TestCase
       "amount" => 1000,
       "account_number" => "0690000032",
       "description" => "test by Ridwan",
-      "transaction_id" => "109282",
+      "transaction_id" => time(),
       "merchant_id" => "577e5fe42989c31100b26f13"
     );
     $response = $accountPaymentClient->createPayment($paymentDetails);
-    $this->log->info("testAccountPaymentResponseOkay: ".json_encode($response));
+    $this->assertTrue($response->verify);
+    $this->assertEquals("Verification Code Sent", $response->message);
+    $this->assertNotEmpty($response->orderId);
   }
 }
