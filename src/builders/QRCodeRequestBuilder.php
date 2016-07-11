@@ -111,6 +111,6 @@ class QRCodeRequestBuilder extends ParentBuilder
     $response = $this->session->post(ServerData::$QR_CODE_PATH);
     ServerResponseValidator::validate($response);
     $this->log->info("In QRCodeRequestBuilder response: ".$response);
-    return json_decode($response, true);
+    return json_decode($response->body, true);
   }
 }
