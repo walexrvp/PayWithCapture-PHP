@@ -33,4 +33,13 @@ class Otp
   {
     return $this->sendOtp(ServerData::$VOICE_OTP_TYPE, $phone);
   }
+
+  public function authenticateOtp($otp, $phone)
+  {
+    $response = RequestBuilder::getOtpRequestBuilder($this->env)
+                                  ->addPhoneAuth($phone)
+                                  ->addOtpAuth($otp)
+                                  ->buildOtpAuth();
+    return $response;                              
+  }
 }
