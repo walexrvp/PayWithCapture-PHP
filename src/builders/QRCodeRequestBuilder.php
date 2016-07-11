@@ -1,6 +1,8 @@
 <?php
 namespace PayWithCapture\Builders;
+
 use PayWithCapture\Validators\ServerResponseValidator;
+use PayWithCapture\Services\ServerData;
 
 /*
 * This class is responsible for building the request

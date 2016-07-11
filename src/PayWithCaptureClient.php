@@ -5,10 +5,13 @@ use PayWithCapture\Contracts\APIContract;
 use PayWithCapture\Services\Transaction;
 use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Otp;
+use PayWithCapture\Services\CardPayment;
+use PayWithCapture\Services\AccountPayment;
+use PayWithCapture\Services\QRCode;
 
 /*
-* This class is responsible for getting clients to
-* all services provided by PayWithCapture
+* This is the entry point of this library
+*
 * $client = new PayWithCaptureClient($clientId, $clientSecret, $environment)
 * the $environment variable can either be "staging" or "production"
 * depending on the stage of development you are in.
@@ -36,7 +39,7 @@ class PayWithCaptureClient implements APIContract
   * with transaction endpoints such as get details of a transaction
   * transactionClient = $client->getTransactionClient();
   * transactionClient->findTransaction($transactionId);
-  * @return TransactionResponse
+  * @return {Array} json response string from server in array format.
   * @throws Exceptions
   */
   public function getTransactionClient()
@@ -61,7 +64,7 @@ class PayWithCaptureClient implements APIContract
 
   public function getQRCodeClient()
   {
-    
+    retur new QRCode($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 
   public function getPOSPrintingClient()
