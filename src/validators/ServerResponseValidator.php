@@ -30,19 +30,22 @@ class ServerResponseValidator
     self::init();
     self::$log->info("Account Payment Server Response: ".$response->body);
 
+    if ($response->status_code == 500)
+      throw new ServerUnAvailableException();
+
     if ($response->status_code == 404)
-      throw new \Exception(""); //TODO: throw not found exception
+      throw new NotFoundException();
 
     if ($response->status_code == 401)
-      throw new \Exception(""); //TODO: unauthorized access exception
+      throw new UnAuthorizedException();
 
     if ($response->status_code == 403)
-      throw new \Exception(""); //TODO: unauthorized access Exception
+      throw new Exception(""); //TODO: unauthorized access Exception
 
     $responseInArrayFormat = json_decode($response->body, true);
 
     if ($responseInArrayFormat['status'] == "error")
-      throw new \Exception(""); //TODO: throw invalid request exception and display message
+      throw new Exception(""); //TODO: throw invalid request exception and display message
   }
 
 }
