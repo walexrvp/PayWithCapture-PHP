@@ -1,5 +1,5 @@
 <?php
-class namespace PayWithCapture\Services;
+namespace PayWithCapture\Services;
 
 class QRCode
 {
@@ -32,22 +32,46 @@ class QRCode
   * ```
   * $qrClient->generateQRCode($params)
   * ```
-  * @param {String} $param['merchantId']. Your merchant account id.
+  * @param {String} $param['merchant_id']. Your merchant account id.
   * @param {String} $param['amount']. Product amount
   * @param {String} $param['name']. Product name
   * @param {String} $param['description'].
-  * @param {Boolean} $param['amountlocked']
+  * @param {Boolean} $param['is_amount_locked']
   * @param {String} $param['image']. A base64 encoded image string.
   *
   * @return {Array} $response. An array of json response from the server.
   */
   public function generateQRCode(array $param)
   {
-
+    $response = RequestBuilder::getQRCodeRequestBuilder($this->env)
+                                  ->addAccessToken($this->accessToken)
+                                  ->addName($param['name'])
+                                  ->addMerchantId($param['merchant_id'])
+                                  ->addImage($param['image'])
+                                  ->addAmount($param['amount'])
+                                  ->addDescription($param['description'])
+                                  ->addAmountLocked($param['is_amount_locked'])
+                                  ->build();
+    return $response;
   }
 
-  public function getProductQRCode()
+  /*
+  * @method getProductQRCode
+  * This instance method can be used to fetch QR code
+  * for a product whose qr code was already generated
+  * ```
+  * $qrClient->getProductQRCode($params)
+  * ```
+  * @param {String} $productId. Your product id in the response of the generateQRCode method.
+  *
+  * @return {Array} $response. An array of json response from the server.
+  */
+  public function getProductQRCode($productId)
   {
-
+    $response = RequestBuilder::getQRCodeRequestBuilder($this->env)
+                                  ->addAcessToken($this->accessToken)
+                                  ->addProductId($productId)
+                                  ->build();
+    return $response;
   }
 }
