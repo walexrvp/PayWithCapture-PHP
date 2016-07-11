@@ -17,15 +17,33 @@ class OtpServiceTest extends PHPUnit_Framework_TestCase
     $this->log = Logging::getLoggerInstance();
   }
 
-  function testOtpResponseOk()
+  function testSmsOtpResponseOk()
   {
     $auth = new Authentication($this->clientId, $this->clientSecret);
     $auth->loadAccessToken();
     $token = $auth->getAccessToken();
     $otpClient = new Otp($token);
     $smsResponse = $otpClient->sendSmsOtp("2349098090424");
-    $voiceResponse = $otpClient->sendVoiceOtp("2349098090424");
     $this->assertEquals("success", $smsResponse['status']);
+  }
+
+  function testVoiceOtpResponseOk()
+  {
+    $auth = new Authentication($this->clientId, $this->clientSecret);
+    $auth->loadAccessToken();
+    $token = $auth->getAccessToken();
+    $otpClient = new Otp($token);
+    $voiceResponse = $otpClient->sendVoiceOtp("2349098090424");
     $this->assertEquals("success", $voiceResponse['status']);
+  }
+
+  function testOtpAuthResponseOk()
+  {
+    $auth = new Authentication($this->clientId, $this->clientSecret);
+    $auth->loadAccessToken();
+    $token = $auth->getAccessToken();
+    $otpClient = new Otp($token);
+    $smsResponse = $otpClient->authenticateOtp("12345", "2349098090424");
+    $this->assertEquals("success", $smsResponse['status']);
   }
 }
