@@ -1,6 +1,6 @@
 <?php
 /*
-* This class is responsible for managing request to Authorization endpoint
+* This class is responsible for managing AuthenticationRequestBuilder.
 * please always call loadAccessToken before getAccessToken
 */
 namespace PayWithCapture\Services;
@@ -24,6 +24,21 @@ class Authentication
   */
   private $env;
 
+  /*
+  * @class Authentication
+  * @constructor
+  * ```
+  *  new Authentication($accessToken, $env);
+  * ```
+  * @param {String} clientId. Your devcenter clientId
+  * @param {String} clientSecret. Your devcenter clientSecret
+  * @param {String} optional $env. This indicate the level of development. When in development use staging
+  * and when in live or production use production.
+  * @param {String} eagerLoading false or true. Use false so server request for token only happens later on
+  * @param {String} username. Your devcenter username
+  * @param {String} password. Your devcenter password
+  *
+  */
   function __construct($clientId, $clientSecret, $env="staging", $eagerLoading=false, $username="", $password="") {
     $this->clientId = $clientId;
     $this->clientSecret = $clientSecret;
@@ -37,11 +52,20 @@ class Authentication
       $this->fetchAccessToken();
   }
 
+  /*
+  * @method getAccessToken
+  * @returns accessToken
+  */
   public function getAccessToken()
   {
     return $this->accessToken;
   }
 
+  /*
+  * @method loadAccessToken
+  * This method checks if accessTOken is set and not expired.
+  * If not set it fetches the accessToken from the server
+  */
   public function loadAccessToken()
   {
     if ($this->getAccessToken()) {
@@ -63,6 +87,9 @@ class Authentication
     return false;
   }
 
+  /*
+  * Uses the AuthenticationRequestBuilder to fetch accessToken from the server
+  */
   private function fetchAccessToken()
   {
     $this->validateFetchTokenRequiredValues();

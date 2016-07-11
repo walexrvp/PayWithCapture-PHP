@@ -24,7 +24,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addMerchantId
   * @param {String} merchantId. Your account merchant id.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addMerchantId($merchantId)
   {
@@ -35,7 +35,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addName
   * @param {String} name. Your product name which you need the qr code for.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addName($name)
   {
@@ -46,7 +46,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addDescription
   * @param {String} description.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addDescription($description)
   {
@@ -57,7 +57,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addAmount
   * @param {String} amount.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addAmount($amount)
   {
@@ -68,7 +68,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addAmountLocked
   * @param {Boolean} $isAmountLocked.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addAmountLocked($isAmountLocked)
   {
@@ -79,7 +79,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   /*
   * @method addImage
   * @param {String} image. A base64 encoded image string for the product.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addImage($image)
   {
@@ -92,7 +92,7 @@ class QRCodeRequestBuilder extends ParentBuilder
   * in PayWithCapture\Services namespace
   * @method addImage
   * @param {String} productId.
-  * @return {QRCodeRequestBuilder} instance so that this method can be chainable
+  * @chainable
   */
   public function addProductId($productId)
   {
