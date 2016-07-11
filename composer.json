@@ -1,7 +1,10 @@
 {
   "name": "PayWithCapture",
+  "version": "1.0.0-beta",
   "description": "A PHP wrapper for PayWithCapture's API",
   "license": "MIT",
+  "homepage": "https://github.com/PayWC/PayWithCapture-PHP",
+  "keywords": ["card payment", "bill payment", "reccurent payment", "account payment", "Africa", "Nigeria"],
   "authors": [
     {
       "name": "Ridwan Olalere",
