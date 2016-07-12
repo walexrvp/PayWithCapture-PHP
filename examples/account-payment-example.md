@@ -26,7 +26,8 @@ $accountPaymentResponse = $accountClient->createPayment($data);
 
 //You need the create payment signature for the payment validation
 //So you need to get the signature and store it for future use in validatePayment
-$signature = $accountClient->getPaymentRequestSignature()
+//Note you should only call this method after calling createPayment
+$signature = $accountClient->getPaymentRequestSignature();
 
 //after a payment is created, an otp will be sent to the account holder
 //ask your customer to enter their otp then validate with
