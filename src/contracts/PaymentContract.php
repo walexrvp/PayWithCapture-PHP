@@ -9,5 +9,5 @@ namespace PayWithCapture\Contracts;
 interface PaymentContract
 {
   public function createPayment(array $params);
-  public function validatePayment($otp);
+  public function validatePayment($signature, $otp);
 }

@@ -8,6 +8,7 @@ use PayWithCapture\Services\Otp;
 use PayWithCapture\Services\CardPayment;
 use PayWithCapture\Services\AccountPayment;
 use PayWithCapture\Services\QRCode;
+use PayWithCapture\Services\Authentication;
 
 /*
 * This is the entry point of this library
@@ -22,16 +23,16 @@ class PayWithCaptureClient implements APIContract
 
   private $authentication;
 
-  function __construct($clientId, $clientSecret, $env = ServerData::$STAGING, $eagerLoading = false, $username = "", $password = "")
+  function __construct($clientId, $clientSecret, $env = "staging", $eagerLoading = false, $username = "", $password = "")
   {
     $this->env = $env;
-    $authentication = new Authentication($clientId, $clientSecret, $env, $eagerLoading, $username, $password);
+    $this->authentication = new Authentication($clientId, $clientSecret, $env, $eagerLoading, $username, $password);
   }
 
   private function loadAuthAndReturnAccessToken()
   {
-    $authentication->loadAccessToken();
-    $accessToken = $authentication->getAccessToken();
+    $this->authentication->loadAccessToken();
+    return $this->authentication->getAccessToken();
   }
 
   /*
@@ -76,11 +77,11 @@ class PayWithCaptureClient implements APIContract
   */
   public function getQRCodeClient()
   {
-    retur new QRCode($this->loadAuthAndReturnAccessToken(), $this->env);
+    return new QRCode($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 
   /*
-  * returns pos printing client 
+  * returns pos printing client
   */
   public function getPOSPrintingClient()
   {

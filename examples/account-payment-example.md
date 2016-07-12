@@ -24,7 +24,12 @@ $data = array(
 //inspect the $accountPaymentResponse to see what a response looks like  
 $accountPaymentResponse = $accountClient->createPayment($data);
 
+//You need the create payment signature for the payment validation
+//So you need to get the signature and store it for future use in validatePayment
+$signature = $accountClient->getPaymentRequestSignature()
+
 //after a payment is created, an otp will be sent to the account holder
 //ask your customer to enter their otp then validate with
-$paymentResponse = $accountClient->validatePayment($otp);
+//note that this validate payment is only needed for verve cards
+$paymentResponse = $accountClient->validatePayment($signature, $otp);
 ```
