@@ -4,8 +4,14 @@ This is a template for you to use in your own projects for processing account pa
 ```
 use PayWithCapture\PayWithCaptureClient;
 
+//You can find your clientId, $clientSecret in your PayWithCapture DevCenter settings page
+$clientId = "745474656hdhdgftfyfjfkg";
+$clientSecret = "jyrtr64546470od";
+
+$env = "staging"; // $env should be "staging" when in dev mode and in production change to "production"
 $client = new PayWithCaptureClient($clientId, $clientSecret, $env);
 $accountClient = $client->getAccountPaymentClient();
+
 $data = array(
     "amount" => 1000,
     "description" => "payment for a forLoop shirt",
@@ -14,7 +20,7 @@ $data = array(
     "account_number" => "53437464547" //account number you want to charge
   );
 
-//one a payment is created you will get an array response.
+//once a payment is created you will get an array response.
 //inspect the $accountPaymentResponse to see what a response looks like  
 $accountPaymentResponse = $accountClient->createPayment($data);
 
