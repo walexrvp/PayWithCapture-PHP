@@ -65,6 +65,17 @@ class CardPayment implements PaymentContract
   }
 
   /*
+  * @method getLastPaymentAccessToken
+  * This will return the last used accessToken for payment.
+  * this method is needed so the client can store the access token to be used to validate
+  * a payment later
+  */
+  public function getLastPaymentAccessToken()
+  {
+    return $this->accessToken;
+  }
+
+  /*
   * This method validates an initiated payment using otp sent to the user.
   * @method validatePayment
   * @param {String} otp.

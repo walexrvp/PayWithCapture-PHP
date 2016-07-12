@@ -21,6 +21,7 @@ use PayWithCapture\Contracts\PaymentContract;
 class AccountPayment implements PaymentContract{
   private $accessToken;
   private $env;
+  private $signature;
 
   /*
   * @class AccountPayment
@@ -46,7 +47,7 @@ class AccountPayment implements PaymentContract{
   */
   public function createPayment(array $params)
   {
-    $accountPayment = RequestBuilder::getAccountPaymentRequestBuilder($this->env)
+    $response = RequestBuilder::getAccountPaymentRequestBuilder($this->env)
                         ->addAccessToken($this->accessToken)
                         ->addType(ServerData::$ACCOUNT_PAYMENT_TYPE)
                         ->addAmount($params['amount'])
@@ -55,8 +56,44 @@ class AccountPayment implements PaymentContract{
                         ->addMerchantId($params['merchant_id'])
                         ->addAccountNumber($params['account_number'])
                         ->build();
-    return $accountPayment;
+    $this->setPaymentRequestSignature($this->accessToken, $response->cookies);
+    return json_decode($response->body, true);
   }
+
+  /*
+  * This method is needed to ensure the createpayment request
+  * and validate payment request are identical with accessToken and
+  * and the cookies set are the same for server side validation.
+  * after create payment call getPaymentRequestSignature and store
+  * the signature to use later for validate payment.
+  * remember validate payment is only needed for Verve cards
+  */
+  private function setPaymentRequestSignature($token, $cookies)
+  {
+    $this->signature['accessToken'] = $token;
+    $this->signature['cookies'] = $cookies;
+  }
+
+  /*
+  * get signature
+  */
+  public function getPaymentRequestSignature()
+  {
+    return $this->signature;
+  }
+
+
+  /*
+  * @method getLastPaymentAccessToken
+  * This will return the last used accessToken for payment.
+  * this method is needed so the client can store the access token to be used to validate
+  * a payment later
+  */
+  public function getLastPaymentAccessToken()
+  {
+    return $this->accessToken;
+  }
+
 
   /*
   * This method validates an initiated payment using otp sent to the user.
@@ -64,10 +101,12 @@ class AccountPayment implements PaymentContract{
   * @param {String} otp.
   * @returns {Array} json response from server in array format
   */
-  public function validatePayment($otp)
+  public function validatePayment($signature, $otp)
   {
+    print($otp);
     $response = RequestBuilder::getPaymentValidationRequestBuilder($this->env)
-                                  ->addAccessToken($this->accessToken)
+                                  ->addCookies($signature['cookies'])
+                                  ->addAccessToken($signature['accessToken'])
                                   ->addType(ServerData::$ACCOUNT_PAYMENT)
                                   ->addOtp($otp)
                                   ->build();

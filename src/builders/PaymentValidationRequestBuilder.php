@@ -34,6 +34,17 @@ class PaymentValidationRequestBuilder extends ParentBuilder
   }
 
   /*
+  * This method allows you to set cookies
+  * @method addCookies
+  * @chainable
+  */
+  public function addCookies($cookies)
+  {
+    $this->session->options['cookies'] = $cookies;
+    return $this;
+  }
+
+  /*
   * adds otp to the request to the server
   * @method addOtp
   * @param {String} otp.
@@ -41,7 +52,7 @@ class PaymentValidationRequestBuilder extends ParentBuilder
   */
   public function addOtp($otp)
   {
-    $this->session->data['otp'] = $type;
+    $this->session->data['otp'] = $otp;
     return $this;
   }
 
@@ -52,8 +63,9 @@ class PaymentValidationRequestBuilder extends ParentBuilder
   */
   public function build()
   {
-    $this->log->info("Transaction request headers: ".json_encode($this->session->headers));
-    $this->log->info("Transaction request params: ".json_encode($this->session->options));
+    $this->log->info("Payment validation request headers: ".json_encode($this->session->headers));
+    $this->log->info("Payment validation request params: ".json_encode($this->session->options));
+    $this->log->info("Payment validation request body: ".json_encode($this->session->data));
     $response = $this->session->post(ServerData::$PAYMENT_VALIDATION_URL);
     ServerResponseValidator::validate($response);
     return json_decode($response->body, true);
