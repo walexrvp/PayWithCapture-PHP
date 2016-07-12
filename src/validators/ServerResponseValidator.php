@@ -40,12 +40,12 @@ class ServerResponseValidator
       throw new UnAuthorizedException();
 
     if ($response->status_code == 403)
-      throw new Exception(""); //TODO: unauthorized access Exception
+      throw new ForbiddenRequestException();
 
     $responseInArrayFormat = json_decode($response->body, true);
 
     if ($responseInArrayFormat['status'] == "error")
-      throw new Exception(""); //TODO: throw invalid request exception and display message
+      throw new InvalidRequestException();
   }
 
 }
