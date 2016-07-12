@@ -10,6 +10,7 @@ use PayWithCapture\Builders\TransactionRequestBuilder;
 use PayWithCapture\Builders\AccountPaymentRequestBuilder;
 use PayWithCapture\Builders\PaymentValidationRequestBuilder;
 use PayWithCapture\Builders\CardPaymentRequestBuilder;
+use PayWithCapture\Builders\POSPrintingRequestBuilder;
 use PayWithCapture\Builders\OtpRequestBuilder;
 use PayWithCapture\Builders\QRCodeRequestBuilder;
 
@@ -126,6 +127,12 @@ class RequestBuilder
   public static function getQRCodeRequestBuilder($env)
   {
     return new QRCodeRequestBuilder($env);
+  }
+
+
+  public static function getPOSPrintingRequestBuilder($env)
+  {
+    return new POSPrintingRequestBuilder($env);
   }
 
 
