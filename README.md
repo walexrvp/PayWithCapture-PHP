@@ -28,7 +28,7 @@ if you insist on installing manually then check the dependencies of the projects
 ## Getting Started
 To use, first create an instance of the PayWithCaptureClient class. This class is responsible for
 providing clients to other services provided by PayWithCapture API.
-```
+```PHP
 //recommended approach
 $client = new PayWithCaptureClient($clientId, $clientSecret);
 
