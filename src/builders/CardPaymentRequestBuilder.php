@@ -190,6 +190,6 @@ class CardPaymentRequestBuilder extends ParentBuilder
       $response = $this->session->post(ServerData::$PAYMENT_PATH);
       $this->log->info("CardPaymentBuilder build response: ".json_encode($response));
       ServerResponseValidator::validate($response);
-      return json_decode($response->body, true);
+      return $response;
     }
 }

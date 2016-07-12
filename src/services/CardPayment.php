@@ -3,6 +3,7 @@ namespace PayWithCapture\Services;
 
 use PayWithCapture\Builders\CardPaymentRequestBuilder;
 use PayWithCapture\Contracts\PaymentContract;
+use PayWithCapture\Services\Logging;
 
 /*
 * This class is responsible for using the CardRequestBuilder to
@@ -13,6 +14,7 @@ class CardPayment implements PaymentContract
 {
   private $accessToken;
   private $env;
+  private $signature;
 
   /*
   * @class CardPayment
@@ -25,6 +27,8 @@ class CardPayment implements PaymentContract
   {
     $this->accessToken = $accessToken;
     $this->env = $env;
+
+    $this->log = Logging::getLoggerInstance();
   }
 
   /*
@@ -36,6 +40,8 @@ class CardPayment implements PaymentContract
   * @param {String} data['transaction_id']
   * @param {String} data['merchant_id']
   * @param {String} data['card_no']
+  * @param {String} data['exp_month']
+  * @param {String} data['exp_year']
   * @param {String} data[bvn] optional
   * @param {String} data[pin] optional
   * @param {String} data[redirect_url] optional
@@ -61,7 +67,31 @@ class CardPayment implements PaymentContract
                                   ->addExpYear($data['exp_year'])
                                   ->addRedirectUrl($redirect_url)
                                   ->build();
-    return $response;
+
+    $this->setPaymentRequestSignature($this->accessToken, $response->cookies);
+    return json_decode($response->body, true);
+  }
+
+  /*
+  * This method is needed to ensure the createpayment request
+  * and validate payment request are identical with accessToken and
+  * and the cookies set are the same for server side validation.
+  * after create payment call getPaymentRequestSignature and store
+  * the signature to use later for validate payment.
+  * remember validate payment is only needed for Verve cards
+  */
+  private function setPaymentRequestSignature($token, $cookies)
+  {
+    $this->signature['accessToken'] = $token;
+    $this->signature['cookies'] = $cookies;
+  }
+
+  /*
+  * get signature
+  */
+  public function getPaymentRequestSignature()
+  {
+    return $this->signature;
   }
 
   /*
@@ -81,11 +111,12 @@ class CardPayment implements PaymentContract
   * @param {String} otp.
   * @returns {Array} json response from server in array format
   */
-  public function validatePayment($otp)
+  public function validatePayment($signature, $otp)
   {
     $response = RequestBuilder::getPaymentValidationRequestBuilder($this->env)
-                                  ->addAccessToken($this->accessToken)
-                                  ->addType(ServerData::$ACCOUNT_PAYMENT)
+                                  ->addCookies($signature['cookies'])
+                                  ->addAccessToken($signature['accessToken'])
+                                  ->addType(ServerData::$CARD_PAYMENT)
                                   ->addOtp($otp)
                                   ->build();
     return $response;
