@@ -2,6 +2,11 @@
 namespace PayWithCapture\Validators;
 
 use PayWithCapture\Services\Logging;
+use PayWithCapture\Errors\ForbiddenRequestException;
+use PayWithCapture\Errors\InvalidRequestException;
+use PayWithCapture\Errors\NotFoundException;
+use PayWithCapture\Errors\ServerUnavailableException;
+use PayWithCapture\Errors\UnAuthorizedException;
 /*
 * After a particuler request builder returns the server response
 * it passes the response to validate method of this class to validate if

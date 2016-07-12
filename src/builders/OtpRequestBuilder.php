@@ -91,7 +91,7 @@ class OtpRequestBuilder extends ParentBuilder
   * this method builds the request for validating an otp with the PayWithCapture server
   * @method build
   */
-  public function buidOtpAuth(){
+  public function buildOtpAuth(){
     $this->log->info("Otp authentication headers: " . json_encode($this->session->headers));
     $this->log->info("Otp authentication data: " . json_encode($this->session->data));
     $response = $this->session->post(ServerData::$OTP_AUTH_PATH);
