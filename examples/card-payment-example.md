@@ -34,7 +34,8 @@ $data = array(
 $response = $cardClient->createPayment($data);
 
 //if you created payment for Verve card then you will need to
-//do validate payment process as show below
+//do validate payment process as show below. The getPaymentRequestSignature will give
+//the signature you need for validation.
 $signature = $cardClient->getPaymentRequestSignature();
 
 //then validate with the otp and payment request signature
