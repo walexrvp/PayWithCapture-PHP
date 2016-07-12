@@ -1,7 +1,7 @@
 # Account payment example
 This is a template for you to use in your own projects for processing account payments with PayWithCapture PHP.
 
-```
+```PHP
 use PayWithCapture\PayWithCaptureClient;
 
 //You can find your clientId, $clientSecret in your PayWithCapture DevCenter settings page
