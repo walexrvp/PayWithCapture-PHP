@@ -10,8 +10,11 @@ use PayWithCapture\Validators\ServerResponseValidator;
 * @class POSPrintingRequestBuilder
 * @extends RequestBuilder
 */
-class POSPrintingRequestBuilder extends RequestBuilder
+class POSPrintingRequestBuilder extends ParentBuilder
 {
+  private $merchantCode;
+  private $referenceNo;
+
   function __construct($env)
   {
     parent::__construct($env);
@@ -24,7 +27,7 @@ class POSPrintingRequestBuilder extends RequestBuilder
   */
   public function addMerchantCode($code)
   {
-    $this->session->data['merchant_code'] = $code;
+    $this->merchantCode = "?merchant_code=".$code;
     return $this;
   }
 
@@ -35,7 +38,7 @@ class POSPrintingRequestBuilder extends RequestBuilder
   */
   public function addReferenceNo($ref)
   {
-    $this->session->data['reference_no'] = $ref;
+    $this->referenceNo = "?reference_no=".$ref;
     return $this;
   }
 
@@ -47,8 +50,8 @@ class POSPrintingRequestBuilder extends RequestBuilder
   public function build()
   {
     $this->log->info("In POSPrintingRequestBuilder");
-    $response = $this->session->get(ServerData::$TRANSACTION_QUERY_PATH);
-    $this->log->info("POSPrintingRequestBuilder response: " . $response);
+    $response = $this->session->get(ServerData::$TRANSACTION_QUERY_PATH . $this->referenceNo . $this->merchantCode);
+    $this->log->info("POSPrintingRequestBuilder response: " . json_encode($response));
     ServerResponseValidator::validate($response);
     return json_decode($response->body, true);
   }

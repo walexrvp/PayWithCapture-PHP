@@ -9,6 +9,7 @@ use PayWithCapture\Services\CardPayment;
 use PayWithCapture\Services\AccountPayment;
 use PayWithCapture\Services\QRCode;
 use PayWithCapture\Services\Authentication;
+use PayWithCapture\Services\POSPrinting;
 
 /*
 * This is the entry point of this library
@@ -85,6 +86,6 @@ class PayWithCaptureClient implements APIContract
   */
   public function getPOSPrintingClient()
   {
-
+    return new POSPrinting($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 }
