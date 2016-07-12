@@ -28,9 +28,9 @@ $data = array(
     "redirect_url" => "" //url to redirect to after authentication
   );
 
-//if you are create payment for MasterCard or Visa Card then you only
-//need to create payment and display the the data['responsehtml'] in the $response
-//in an iframe
+//if you created payment for MasterCard or Visa Card then you only
+//need to create payment and display the the data['responsehtml'] from $response
+//in an iframe for Mastercard and Visa card verification/validation
 $response = $cardClient->createPayment($data);
 
 //if you created payment for Verve card then you will need to
