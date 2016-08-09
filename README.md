@@ -4,12 +4,9 @@ The PayWithCapture PHP lets you write PHP code to consume PayWithCapture APIs
 You can signup for a PayWithCapture developer account at [PayWithCapture DevCenter](https://pwcdevcenter.herokuapp.com)
 
 ### PayWithCapture API Services
-+ __Account Payment__
-+ __Card Payment__
 + __Transactions__
 + __POS Printing__
 + __QR CODES__
-+ __BVN Bank Account verification__
 
 ## Requirements
 PHP 5.3.3 and later
