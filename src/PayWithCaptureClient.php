@@ -5,8 +5,6 @@ use PayWithCapture\Contracts\APIContract;
 use PayWithCapture\Services\Transaction;
 use PayWithCapture\Services\ServerData;
 use PayWithCapture\Services\Otp;
-use PayWithCapture\Services\CardPayment;
-use PayWithCapture\Services\AccountPayment;
 use PayWithCapture\Services\QRCode;
 use PayWithCapture\Services\Authentication;
 use PayWithCapture\Services\POSPrinting;
@@ -47,22 +45,6 @@ class PayWithCaptureClient implements APIContract
   public function getTransactionClient()
   {
     return new Transaction($this->loadAuthAndReturnAccessToken(), $this->env);
-  }
-
-  /*
-  * returns account payment client
-  */
-  public function getAccountPaymentClient()
-  {
-    return new AccountPayment($this->loadAuthAndReturnAccessToken(), $this->env);
-  }
-
-  /*
-  * returns card payment client
-  */
-  public function getCardPaymentClient()
-  {
-    return new CardPayment($this->loadAuthAndReturnAccessToken(), $this->env);
   }
 
   /*
